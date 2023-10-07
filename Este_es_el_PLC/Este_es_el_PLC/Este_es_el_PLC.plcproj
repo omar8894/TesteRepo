@@ -78,11 +78,6 @@
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Este_es_el_PLC.tmc">
-      <SubType>Content</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PlaceholderResolution Include="Tc2_EtherCAT">
       <Resolution>Tc2_EtherCAT, 3.3.21.0 (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
