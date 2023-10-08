@@ -22,7 +22,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{1743D4B3-C57E-4737-93BB-5F75A977AFD6}" Name="Este_es_el_PLC" PrjFilePath="Este_es_el_PLC\Este_es_el_PLC.plcproj" TmcFilePath="Este_es_el_PLC\Este_es_el_PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="Este_es_el_PLC\Este_es_el_PLC.tmc" TmcHash="{545DFF54-0D54-4141-85A1-AD660A79B665}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="1" TmcPath="Este_es_el_PLC\Este_es_el_PLC.tmc" TmcHash="{7A3D65AD-D88D-BDF2-C9C8-4C3FC724BBD3}">
 					<Name>Este_es_el_PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
