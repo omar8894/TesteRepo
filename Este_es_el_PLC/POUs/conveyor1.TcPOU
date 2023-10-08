@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="conveyor1" Id="{a9931d23-820b-42ce-abd7-93b93010757f}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM conveyor1
+VAR
+	bStatus: BOOL;
+	bSensor2: BOOL;
+	bSensor1: BOOL;
+	bAlimentador1: BOOL;
+	intCaseConveyor : INT;
+	bButtonReset: BOOL;
+	timer1, timer2, timer3,timer4 : TON;
+	bConvFowar1: BOOL;
+	bMachineCenterOpen: BOOL;
+	bMachineCenterBusy: BOOL;
+	bStartMachineCenter: BOOL;
+	wMachineProgress: WORD;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[bStatus := tags.bAutoMan.Q1;
+bSensor1 := GVL.mb_Output_Coils[10];
+bSensor2 := GVL.mb_Output_Coils[11];
+bButtonReset := gvl.mb_Output_Coils[2];
+bMachineCenterOpen := gvl.mb_Output_Coils[12];
+bMachineCenterBusy := gvl.mb_Output_Coils[13];
+wMachineProgress := gvl.mb_Output_Registers[0];
+
+
+GVL.mb_Input_Coils[10] := bAlimentador1;
+GVL.mb_Input_Coils[11] := bConvFowar1;
+GVL.mb_Input_Coils[12] := bStartMachineCenter;
+
+timer1(PT:= T#1S);
+timer2(PT:= T#1S);
+timer3(PT:= T#1S);
+
+
+IF NOT bStatus THEN
+	intCaseConveyor := 0;
+END_IF
+
+IF intCaseConveyor = 40 THEN
+	timer2(IN := TRUE);
+ELSE
+	timer2(IN := FALSE);
+END_IF
+
+IF intCaseConveyor = 50 THEN
+	timer3(IN := TRUE);
+ELSE
+	timer3(IN := FALSE);
+END_IF
+
+CASE intCaseConveyor OF
+	00: timer1(IN:= FALSE);
+		timer4(IN:= FALSE);
+		bConvFowar1 := FALSE;
+		bStartMachineCenter := False;
+		IF bStatus THEN
+			IF bSensor1 THEN
+				intCaseConveyor := 10;
+			ELSE
+				intCaseConveyor := 20;
+			END_IF
+		END_IF
+	10: IF bSensor1 THEN
+			bAlimentador1 := TRUE;
+		ELSE
+			bAlimentador1 := FALSE;
+			intCaseConveyor := 20;
+		END_IF
+	20: timer1(in:= TRUE);
+		IF timer1.Q THEN
+			bConvFowar1 := TRUE;
+			intCaseConveyor := 30;
+		END_IF;
+	30: IF NOT bsensor2 THEN
+			bConvFowar1 := FALSE;
+				intCaseConveyor := 40;
+		END_IF
+		
+	40: IF timer2.Q AND NOT bMachineCenterbusy  THEN
+			bConvFowar1 := TRUE;
+			IF bSensor2 THEN
+				intCaseConveyor := 50;
+			END_IF
+		END_IF
+	50: IF timer3.Q THEN
+			bStartMachineCenter := TRUE;
+			timer4(IN:= TRUE, PT:= T#300MS);
+			IF timer4.Q THEN
+				intCaseConveyor := 0;
+			END_IF
+		END_IF
+		
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="conveyor1">
+      <LineId Id="5" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="141" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="44" Count="2" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="90" Count="1" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="106" Count="4" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="147" Count="1" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="47" Count="1" />
+      <LineId Id="50" Count="2" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="66" Count="1" />
+      <LineId Id="80" Count="1" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="94" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="98" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="120" Count="1" />
+      <LineId Id="111" Count="0" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="35" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
