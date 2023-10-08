@@ -13,6 +13,7 @@
 *.tmcRefac
 *.library
 *.project.~u
+*.~u
 *.tclrs
 *.tnzip
 *.tpy
