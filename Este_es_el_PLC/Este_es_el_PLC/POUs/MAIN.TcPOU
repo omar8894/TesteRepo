@@ -9,7 +9,7 @@ VAR
 	bStatus : BOOL;
 	bButtonLightStart,
 	bButtonLightStop,
-	bExtra, botroextra : BOOL;
+	bExtra, botroextra,bTercer : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
